@@ -53,8 +53,34 @@ Bored and raised in South Detroit or something
 He took the midnight tray going anywhere"""
 
 def fix_lyrics(bad_version):
-  splitted = bad_version.replace('\n', '').split(' ')
-  print(splitted)
+  splitted = bad_version.replace('\n', ' ').split(' ') # transform in a array
+ 
+  for index in range(0, len(splitted)):
+    if not splitted[index] in dsbWords:
+      splitted[index] = find_correct_word(index, splitted, dsbWords)
+  answer = splitted.replace(None,'')
+  print(answer)
+  separator="+"
+  answer = separator.join(answer)
+  print(answer)
+
+def find_correct_word(index, wrong_array, correct_array):
+  aperture = 1
+  next_word_is_incorrect = True
+  while next_word_is_incorrect: # defines the size of the neighbor copmarison in aperture
+    if wrong_array[index + aperture] in correct_array:
+      next_word_is_incorrect = False
+    else:
+      aperture += 1
   
+  for idx in range (0, len(correct_array)): # find the correct answer in a tweezer movement
+    if correct_array[idx] == wrong_array[index - 1] and correct_array[idx + 1 + aperture] == wrong_array[index + aperture]:
+      return correct_array[idx + 1]
+
+
+
+
+    
+
 
 fix_lyrics(bad_singing)
