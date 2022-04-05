@@ -1,5 +1,5 @@
 # lyric fixer 1.0
-# If you don't remember the correctness of your favorite song,
+# If you don't remember the correctness of the lyric your favorite song,
 # this code search the correct spelling by comparing the closet correct word around your version of the music.
 # 
 
@@ -42,7 +42,8 @@ Don't stop believin'
 Hold on to that feelin'
 Streetlight people"""
 
-dsbWords = dsb.split(' ')
+dsbWords = dsb.replace("\n"," \n ").split(' ') # transform in a array
+
 
 bad_singing = """Just a small tone girl
 Leaving in a lonely whirl
@@ -52,13 +53,15 @@ Bored and raised in South Detroit or something
 He took the midnight tray going anywhere"""
 
 def fix_lyrics(bad_version):
-  splitted = bad_version.split(' ') # transform in a array
- 
+  splitted = bad_version.replace("\n"," \n ").split(' ') # transform in a array
+  
   for index in range(len(splitted)):
-    if not splitted[index] in dsbWords:
+    if not splitted[index] in dsbWords: # find the unknown words
       splitted[index] = find_correct_word(index, splitted, dsbWords)
-  splitted = list(filter(None, splitted))
-  print(splitted)
+  splitted = list(filter(None, splitted)) # removes the extra words tht returned None
+  answer = " ".join(splitted)
+  return answer.replace(" \n ", "\n")
+  
 
 def find_correct_word(index, wrong_array, correct_array):
   aperture = 1
@@ -73,21 +76,6 @@ def find_correct_word(index, wrong_array, correct_array):
     if correct_array[idx] == wrong_array[index - 1] and correct_array[idx + 1 + aperture] == wrong_array[index + aperture]:
       return correct_array[idx + 1]
 
-# def music_printer(music_array):
-#   for index in range(0, len(music_array)-1):
-#     if is_capitalized(music_array[index + 1]):
-#       if is_phrase_ending(index, music_array)
-#       print("#"+music_array[index],sep = "\n")
-#     else:
-#       print(music_array[index], end=" ")
-
-# def is_capitalized(word):
-#   capital = word.capitalize()
-#   if (capital.__eq__(word)):
-#     return True
-#   else:
-#     return  
-    
 
 
-fix_lyrics(bad_singing) # Here where all begins
+print(fix_lyrics(bad_singing)) # Here where all begins
