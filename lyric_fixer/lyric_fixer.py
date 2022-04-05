@@ -1,3 +1,8 @@
+# lyric fixer 1.0
+# If you don't remember the correctness of your favorite song,
+# this code search the correct spelling by comparing the closet correct word around your version of the music.
+# 
+
 dsb = """Just a small town girl
 Livin' in a lonely world
 She took the midnight train goin' anywhere
@@ -37,13 +42,7 @@ Don't stop believin'
 Hold on to that feelin'
 Streetlight people"""
 
-dsbWords = dsb.replace('\n', ' ').split(' ')
-
-print("Don't Stop Believin' is " + str(len(dsbWords)) + " words long.")
-
-# A set is like a list, but with no duplicate entries. 
-# Turning a list into a set is a handy way to remove duplicates.
-print("But it only has " + str(len(set(dsbWords))) + " unique words.")
+dsbWords = dsb.split(' ')
 
 bad_singing = """Just a small tone girl
 Leaving in a lonely whirl
@@ -53,16 +52,13 @@ Bored and raised in South Detroit or something
 He took the midnight tray going anywhere"""
 
 def fix_lyrics(bad_version):
-  splitted = bad_version.replace('\n', ' ').split(' ') # transform in a array
+  splitted = bad_version.split(' ') # transform in a array
  
-  for index in range(0, len(splitted)):
+  for index in range(len(splitted)):
     if not splitted[index] in dsbWords:
       splitted[index] = find_correct_word(index, splitted, dsbWords)
-  answer = splitted.replace(None,'')
-  print(answer)
-  separator="+"
-  answer = separator.join(answer)
-  print(answer)
+  splitted = list(filter(None, splitted))
+  print(splitted)
 
 def find_correct_word(index, wrong_array, correct_array):
   aperture = 1
@@ -77,10 +73,21 @@ def find_correct_word(index, wrong_array, correct_array):
     if correct_array[idx] == wrong_array[index - 1] and correct_array[idx + 1 + aperture] == wrong_array[index + aperture]:
       return correct_array[idx + 1]
 
+# def music_printer(music_array):
+#   for index in range(0, len(music_array)-1):
+#     if is_capitalized(music_array[index + 1]):
+#       if is_phrase_ending(index, music_array)
+#       print("#"+music_array[index],sep = "\n")
+#     else:
+#       print(music_array[index], end=" ")
 
-
-
+# def is_capitalized(word):
+#   capital = word.capitalize()
+#   if (capital.__eq__(word)):
+#     return True
+#   else:
+#     return  
     
 
 
-fix_lyrics(bad_singing)
+fix_lyrics(bad_singing) # Here where all begins
